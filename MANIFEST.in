@@ -1,2 +1,8 @@
-include examples/*.ipynb
-include examples/data/*.*
+include examples/example_dars_esmdb.ipynb
+include examples/data/esmdb/CZ.DPC..HNN.INT-20250227_0000079.ACC.MP.mseed
+include examples/data/esmdb/CZ.DPC..HNN.D.INT-20250227_0000079.SD.MP.ASC
+include examples/data/esmdb/CZ.DPC..HNN.D.INT-20250227_0000079.SA.MP.ASC
+include libsrc/*.c
+include libsrc/*.h
+include libsrc/Makefile
+include Makefile

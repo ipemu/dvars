@@ -11,7 +11,7 @@ def dars(data: np.ndarray, sampling_rate: float,
     Parameters
     ----------
     damp=0.05 : float
-        The damp value.
+        The harmonic oscillator damping.
     nfreq=40 : int
         The number of frequencies.
     freq1=1.0 : float
@@ -22,18 +22,18 @@ def dars(data: np.ndarray, sampling_rate: float,
     Input data
     ----------
     data : np.ndarray
-        The input data array.
+        The input accelerogram.
     sampling_rate : float
-        The sample rate.
+        The sampling rate.
 
     Returns
     -------
     freq: np.ndarray
         The frequency array.
     srd: np.ndarray
-        The pseudo spectral relative displacement amplitudes array.
+        The relative displacement response spectrum.
     saa: np.ndarray
-        The pseudo spectral absolute accelerarion amplitudes array.
+        The absolute accelerarion response spectrum.
     """
     # Check the length of data
     if len(data) == 0:
@@ -43,9 +43,9 @@ def dars(data: np.ndarray, sampling_rate: float,
         raise ValueError("Sample rate must be positive.")
     # Check the damp value
     if damp < 0:
-        raise ValueError("Dump value must be non-negative.")
+        raise ValueError("Damping value must be non-negative.")
     if damp > 1:
-        raise ValueError("Dump value must be less than 1.")
+        raise ValueError("Damping value must be less than 1.")
     # Calculate the time step
     dt = 1 / sampling_rate
     # Calculate the number of samples
