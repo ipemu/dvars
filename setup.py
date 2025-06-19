@@ -1,8 +1,6 @@
 import os
 import subprocess
 from setuptools import setup, find_packages
-from setuptools.command.bdist_egg import bdist_egg as _bdist_egg
-# read plat_name variable from _bdis_egg structure
 
 import sys
 
@@ -61,8 +59,7 @@ setup(
     author='Pavel Zacherle',
     author_email='zapa@ipe.muni.cz',
     keywords = ["response spectra", "earthquake engineering"],
-    # licence GNU General Public License v3 (GPLv3)
-    license='GPLv3',
+    license='Open Source',
     url='https://github.com/zacherle/dvars',
     packages=find_packages(exclude=['tests']),
     classifiers=[

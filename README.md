@@ -17,9 +17,10 @@ the time record of the earthquake on a sequentially retuned harmonic oscillator 
 For each excitation of the recorded acceleration waveform, the maximum observed response
 in terms of relative displacement or absolute acceleration is recorded.
 
-This repository provides a Python interface to a C implementation of pseudospectrogram computation,
+This repository provides a Python interface to a C implementation of response spectrum computation,
 which is based on the classical algorithm ``rdcalcdp``,
-taken from https://github.com/GFZ-Centre-for-Early-Warning/exsim/EXSIM12.for.
+taken from [EXSIM12 repository](https://github.com/GFZ-Centre-for-Early-Warning/exsim)
+(K. Assatourians and G. Atkinson, 2012).
 This is a modified version of the algorithm ``Quake.For``, originally written by J.M. Roesset in 1971.
 The formulation is from Nigam and Jennings (BSSA, v. 59, 909-922, 1969).
 
@@ -32,9 +33,11 @@ For buildeng the C extension:
 - Cross-compilation tools Mingw64 if building for MS Windows
 
 ## Installation
+Since the DVARS package is not yet available on PyPI, you can install it directly from the wheel.
+
 To install the DVARS package, you can use pip:
 ```bash
-pip install dvars
+pip install dvars-0.1.1-py3-none-any.whl --upgrade
 ```
 ## Usage
 ```python
@@ -43,7 +46,7 @@ from dvars import dars
 # Use help for listing arguments
 help(dars)
 ```
-The dars function provides a classic calculation of the response spectrum.
+The ``dars`` function provides a calculation of the response spectrum.
 The input is a time history of ground motion (accelerogram)
 and the output is a tuple containing:
 - A numpy array of frequencies (in Hz)
@@ -54,14 +57,16 @@ Simply as the output of the dars function we get DSR - Displacement Response Spe
 Other modifications used in practice are:
 - PSA (PARS) - Pseudo Acceleration Response Spectra,
 - PSV (PVRS) - Pseudo Velocity Response Spectra,
+
 which can be derived from DSR according to the following relationships:
 - pseudo-velocity response spectrum $\mathsf{PSV}(f) = (2 \pi f) \mathsf{DRS}(f)$
 - pseudo-acceleration response spectrum $\mathsf{PSA}(f) = (2 \pi f) \mathsf{PSV}(f)$
 
 The series of absolute accelerations $AA$ is given for completeness.
 Due to the small value of the standard oscillator damping (5%), the values
-of absolute acceleration $AA$ and pseudo-acceleration response spectrum $\mathsf{PSA}$ are practically the same.
+of absolute acceleration $AA$ and pseudo-acceleration response spectrum $\mathsf{PSA}$ are practically the same.\
 $$ AA(f) \sim \mathsf{PSA}(f) = (2 \pi f)^2 \mathsf{DRS}(f) $$
+
 The relative acceleration values start to differ significantly in situations such as long periods and/or greater than standard damping.
 
 ## Example
@@ -73,12 +78,12 @@ jupyter notebook examples/example_dvars.ipynb
 ```
 
 ## Building the C extension
-Source package installation using pip:
+Source package installation using:
 ```bash
-pip install --editable .
+python -m build
 ```
-is not yet complete correctly, as the C extension is not built automatically.
-Now you can use the following command to install the package:
+is not yet complete correctly.
+Now you can use the following command to compile all the package, including the C extension:
 ```bash
 # linux native build
 make build
