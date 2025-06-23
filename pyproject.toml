@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dvars"
+description = "Response spectra calculations for earthquake engineering"
+keywords = ["response spectra", "earthquake engineering"]
+readme = {file = "README.md", content-type = "text/markdown"}
+authors = [
+    { name = "Pavel Zacherle", email = "zapa@ipe.muni.cz" },
+]
+#license = { text = "GPLv3" }
+requires-python = ">=3.9"
+dynamic = ["version"]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: C",
+    "Development Status :: 3 - Alpha",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries",
+    "Intended Audience :: Developers",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+]
+dependencies = [
+    "numpy",
+    "matplotlib",
+]
+
+[project.urls]
+Repository = "https://github.com/zacherle/dvars.git"
+Issues = "https://github.com/zacherle/dvars/issues"
+
+
+[tool.setuptools.dynamic]
+version = {attr = "dvars.__version__"}
+
+
+#[tool.distutils.bdist_wheel]
+#plat-name = "win_amd64"
+
+[tool.setuptools]
+ext-modules = [
+    {name = "libdars", sources = ["libsrc/dars.c", "libsrc/roesset_quake.c"]}
+]
+#include_dirs = ["libsrc"]
+#library_dirs = ["dvars/dars"]
+#libraries = ["libdars"]
+#define_macros = [["EXAMPLE_DEFINE", "1"]]
+#extra_compile_args = ["-O2"]
+#extra_link_args = ["-lm"]
+
+
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.packages.find]
+include = ["dvars","dvars.dars"]
+#where = ["."]  # list of folders that contain the packages (["."] by default)
+#namespaces = true  # to enable scanning PEP 420 namespaces (true by default)
+#include = ["dvars*"]  # package names should match these glob patterns (["*"] by default)
+#exclude = ["my_package.tests*"]  # exclude packages matching these glob patterns (empty by default)
+#namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
+#https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+
+#[tool.setuptools.package-data]
+#"dvars.dars" = ["libdars*.so"]
+
+
+

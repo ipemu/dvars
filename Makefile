@@ -10,32 +10,37 @@ default: build
 #
 # linux native build
 build:
-	python3 setup.py sdist bdist_wheel
+	#python3 setup.py sdist bdist_wheel
+	python3 -m build --wheel --sdist #--config-setting=--build-option=--plat-name=linux_x86_64
 
 # buildw32 is for 32-bit Windows builds
 buildw32:
 	make -C libsrc clean
-	python3 setup.py sdist bdist_wheel --plat-name win32
+	#python3 setup.py sdist bdist_wheel --plat-name win32
+	python3 -m build --wheel --config-setting=--build-option=--plat-name=win32
 
 # buildw64 is for 64-bit Windows builds
 buildw64:
 	make -C libsrc clean
-	python3 setup.py sdist bdist_wheel --plat-name win-amd64
+	#python3 setup.py sdist bdist_wheel --plat-name win-amd64
+	python3 -m build --wheel --config-setting=--build-option=--plat-name=win_amd64
 
 # clean removes build artifacts
 clean:
 	make -C libsrc clean
 	-rm -r dvars.egg-info
-	-rm -r build/lib
-	-rm dvars/dars/libdars.so
+	-rm -r build/lib*
+	-rm -r build/temp*
+	#-rm dvars/dars/libdars*.*
 	#-rm dvars/dars/libdars.pyd
 
 # distclean removes all build artifacts and cleated distribution files
 distclean:
 	make -C libsrc clean
 	-rm -r dvars.egg-info
-	-rm -r build/lib
-	-rm dvars/dars/libdars.so
+	-rm -r build/lib*
+	-rm -r build/temp*
+	#-rm dvars/dars/libdars.so
 	#-rm dvars/dars/libdars.pyd
 	-rm -r dist
 

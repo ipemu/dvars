@@ -37,7 +37,7 @@ Since the DVARS package is not yet available on PyPI, you can install it directl
 
 To install the DVARS package, you can use pip:
 ```bash
-pip install dvars-0.1.1-py3-none-any.whl --upgrade
+pip install dvars-0.1.2-cp311-cp311-linux_x86_64.whl --upgrade
 ```
 ## Usage
 ```python
@@ -64,26 +64,42 @@ which can be derived from DSR according to the following relationships:
 
 The series of absolute accelerations $AA$ is given for completeness.
 Due to the small value of the standard oscillator damping (5%), the values
-of absolute acceleration $AA$ and pseudo-acceleration response spectrum $\mathsf{PSA}$ are practically the same.\
-$$ AA(f) \sim \mathsf{PSA}(f) = (2 \pi f)^2 \mathsf{DRS}(f) $$
+of absolute acceleration $AA$ and pseudo-acceleration response spectrum $\mathsf{PSA}$ are practically the same.
 
-The relative acceleration values start to differ significantly in situations such as long periods and/or greater than standard damping.
+$$AA(f) \sim \mathsf{PSA}(f) = (2 \pi f)^2 \mathsf{DRS}(f)$$
+
+The absolute acceleration and pseudo-acceleration values start to differ significantly in situations such as long periods and/or greater than standard damping.
 
 ## Example
-On https://github.com/zacherle/dvars/examples you can find examples of how to use the DVARS package.
+Examples are not included in the distribution package, but you can find them in the repository https://github.com/zacherle/dvars in the `examples` directory.
+
 The notebook ``example_dars_esmdb.ipynb`` compares the response spectrum calculated by the `dvars.dars` function
-with the data stored in the ESM-DB, the Engineering Strong-Motion Database https://esm-db.eu/.
+with the data stored in the [ESM-DB](https://esm-db.eu), the Engineering Strong-Motion Database. 
 ```bash
 jupyter notebook examples/example_dvars.ipynb
 ```
 
-## Building the C extension
-Source package installation using:
+## Building the C extension and wheel distribution
+
+To build the C extension and wheel distribution, you need to have the following prerequisites installed:
+- Python 3.x
+- A C compiler (e.g., GCC for Linux, MinGW for Windows)
+- `build` and `setuptools` for building the package
+
+You can download the source package from the github repository.
+
 ```bash
-python -m build
+tar -xvf dvars-0.1.2.tar.gz
+cd dvars-0.1.2
+python3 -m build --wheel
 ```
-is not yet complete correctly.
-Now you can use the following command to compile all the package, including the C extension:
+
+This will create a source distribution and a wheel distribution in the `dist` directory.
+
+<!--
+Alternatively, you can use the `make` command to build the package and the C extension
+using cross-compilation tools on Linux for Windows.
+
 ```bash
 # linux native build
 make build
@@ -97,12 +113,17 @@ make clean
 # distclean removes all build artifacts and cleated distribution files
 make distclean
 ```
+-->
 
 ## Limitations
 - The algorithm is designed for linear oscillators and may not be suitable for non-linear systems.
+- If non-standard damping is required, then the assumptions for calculating pseudo-acceleration
+  from the relative displacement series are not met and the results may not be accurate.
+  Use the absolute acceleration series instead.
 
 ## Contributing
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+Contributions are welcome! If you find any issues or have suggestions for improvements,
+please open an issue or submit a pull request.
 
 ## License
 This project is open source.

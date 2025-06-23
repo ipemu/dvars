@@ -1,10 +1,18 @@
 import ctypes
 import os
+import glob
 
-# Load the shared library libdars.so.
+# Load the shared library libdars*.so or libdars*.dll or libdars*.pyd
 # Supose the shared library is in the same directory as this script.
-
-lib_path = os.path.join(os.path.dirname(__file__), 'libdars.so')
+lib_dir = os.path.dirname(__file__)
+lib_path = glob.glob("./libdars*.so",root_dir=lib_dir)
+if len(lib_path) == 0:
+    lib_path = glob.glob("./libdars*.pyd",root_dir=lib_dir)
+if len(lib_path) == 0:
+    lib_path = glob.glob("./libdars*.dll",root_dir=lib_dir)
+if len(lib_path) == 0:
+    raise FileNotFoundError("Shared library libdars*.so, libdars*.pyd or libdars*.dll not found.")
+lib_path = os.path.join(os.path.dirname(__file__), lib_path[0])
 print(f"Loading shared library from {lib_path}")
 if not os.path.exists(lib_path):
     raise FileNotFoundError(f"Shared library {lib_path} not found.")
