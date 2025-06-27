@@ -16,19 +16,19 @@
 ifeq ($(PLAT),win_amd64)
   # For 64-bit Windows compilation
   CC=/usr/bin/x86_64-w64-mingw32-gcc
-  LIBSUFFIX=.so    #.pyd
+  LIBSUFFIX=.pyd
   EXESUFFIX=.exe
   #LDFLAGS=-static-libgcc
 else ifeq ($(PLAT),win-amd64)
   # For 64-bit Windows compilation
   CC=/usr/bin/x86_64-w64-mingw32-gcc
-  LIBSUFFIX=.so   #.pyd
+  LIBSUFFIX=.pyd
   EXESUFFIX=.exe
   #LDFLAGS=-static-libgcc
 else ifeq ($(PLAT),win32)
   # For 32-bit Windows compilation
   CC=/usr/bin/i686-w64-mingw32-gcc
-  LIBSUFFIX=.so    #.pyd
+  LIBSUFFIX=.pyd
   EXESUFFIX=.exe
   #LDFLAGS=-static-libgcc
 else
@@ -41,7 +41,7 @@ endif
 CFLAGS= -O3 -Wall
 CPPFLAGS=
 LDFLAGS=
-LNAME=libdars$(LIBSUFFIX)
+LNAME=libdars_$(PLAT)$(LIBSUFFIX)
 ENAME=test$(EXESUFFIX)
 
 SHELL=bash
@@ -60,7 +60,7 @@ $(ENAME): $(LNAME) dars.h test.c
 
 clean:
 	-rm *.o
-	-rm libdars.* 
+	-rm libdars*.* 
 	-rm test{,.exe}
 
 install: $(LNAME)

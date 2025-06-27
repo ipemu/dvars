@@ -7,8 +7,8 @@ In earthquake engineering response spectrum is used to analyze the dynamic repon
 The response spectrum shows the maximum values of displacement, velocity and/or acceleration
 as a function of frequency or period.
 
-The calculation is based on the assumption that the structure behaves as a simple mechnical harmonic oscillator,
-damped by default to only 5% and tuned to the natural frequency that is being tested.
+The calculation is based on the assumption that the structure behaves as a simple harmonic oscillator,
+damped by default to only 5% and its natural frequency is tuned to the tested frequency.
 The response spectrum can be determined by applying the same earthquake to a series
 of simple oscillators with different natural frequencies and a uniform damping of 5%.
 In the analog implementation of this test, the earthquake acts on a series of oscillators in parallel, 
@@ -31,6 +31,7 @@ The formulation is from Nigam and Jennings (BSSA, v. 59, 909-922, 1969).
 For buildeng the C extension:
 - C compiler (e.g., GCC)
 - Cross-compilation tools Mingw64 if building for MS Windows
+- Python build tools: `setuptools`, `wheel`, `build`
 
 ## Installation
 Since the DVARS package is not yet available on PyPI, you can install it directly from the wheel.
@@ -39,6 +40,37 @@ To install the DVARS package, you can use pip:
 ```bash
 pip install dvars-0.1.2-cp311-cp311-linux_x86_64.whl --upgrade
 ```
+
+## Building the wheel distribution
+
+1. Download the git repository
+```bash
+git clone https://github.com/ipemu/dvars.git
+```
+or the source package from the releases page and unzip.
+
+2. Go to the root directory of the repository or the source package.
+```bash
+cd dvars-0.1.2
+```
+
+3.  Use the ``make`` command to build the package and the C extension.
+
+Native build  (was tested on Linux only).
+```bash
+# linux native build
+# creates both source and wheel distributions
+make build
+```
+Linux cross-compilation creates a wheel distribution for Windows.
+```bash
+# buildw32 is for 32-bit Windows builds
+make buildw32
+# buildw64 is for 64-bit Windows builds
+make buildw64
+```
+The resulting wheel files will be located in the ``dist`` directory.
+
 ## Usage
 ```python
 # Import the dars function from the dvars module
@@ -71,49 +103,14 @@ $$AA(f) \sim \mathsf{PSA}(f) = (2 \pi f)^2 \mathsf{DRS}(f)$$
 The absolute acceleration and pseudo-acceleration values start to differ significantly in situations such as long periods and/or greater than standard damping.
 
 ## Example
-Examples are not included in the distribution package, but you can find them in the repository https://github.com/zacherle/dvars in the `examples` directory.
+Examples are not included in the distribution package,
+but you can find them in the repository https://github.com/ipemu/dvars in the `examples` directory.
 
 The notebook ``example_dars_esmdb.ipynb`` compares the response spectrum calculated by the `dvars.dars` function
 with the data stored in the [ESM-DB](https://esm-db.eu), the Engineering Strong-Motion Database. 
 ```bash
 jupyter notebook examples/example_dvars.ipynb
 ```
-
-## Building the C extension and wheel distribution
-
-To build the C extension and wheel distribution, you need to have the following prerequisites installed:
-- Python 3.x
-- A C compiler (e.g., GCC for Linux, MinGW for Windows)
-- `build` and `setuptools` for building the package
-
-You can download the source package from the github repository.
-
-```bash
-tar -xvf dvars-0.1.2.tar.gz
-cd dvars-0.1.2
-python3 -m build --wheel
-```
-
-This will create a source distribution and a wheel distribution in the `dist` directory.
-
-<!--
-Alternatively, you can use the `make` command to build the package and the C extension
-using cross-compilation tools on Linux for Windows.
-
-```bash
-# linux native build
-make build
-# or for on Linux cross-compilation for Windows
-# buildw32 is for 32-bit Windows builds
-make buildw32
-# buildw64 is for 64-bit Windows builds
-make buildw64
-# clean removes build artifacts
-make clean
-# distclean removes all build artifacts and cleated distribution files
-make distclean
-```
--->
 
 ## Limitations
 - The algorithm is designed for linear oscillators and may not be suitable for non-linear systems.

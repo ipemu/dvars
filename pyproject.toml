@@ -30,29 +30,21 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/zacherle/dvars.git"
-Issues = "https://github.com/zacherle/dvars/issues"
-
+Repository = "https://github.com/ipemu/dvars.git"
+Issues = "https://github.com/ipemu/dvars/issues"
 
 [tool.setuptools.dynamic]
 version = {attr = "dvars.__version__"}
 
-
 #[tool.distutils.bdist_wheel]
 #plat-name = "win_amd64"
+#plat-name = "win32"
+#plat-name = "linux_x86_64"
 
 [tool.setuptools]
-ext-modules = [
-    {name = "libdars", sources = ["libsrc/dars.c", "libsrc/roesset_quake.c"]}
-]
-#include_dirs = ["libsrc"]
-#library_dirs = ["dvars/dars"]
-#libraries = ["libdars"]
-#define_macros = [["EXAMPLE_DEFINE", "1"]]
-#extra_compile_args = ["-O2"]
-#extra_link_args = ["-lm"]
-
-
+#ext-modules = [
+#    {name = "libdars", sources = ["libsrc/dars.c", "libsrc/roesset_quake.c"]}
+#]
 include-package-data = true
 zip-safe = false
 
@@ -61,8 +53,6 @@ include = ["dvars","dvars.dars"]
 #where = ["."]  # list of folders that contain the packages (["."] by default)
 #namespaces = true  # to enable scanning PEP 420 namespaces (true by default)
 #include = ["dvars*"]  # package names should match these glob patterns (["*"] by default)
-#exclude = ["my_package.tests*"]  # exclude packages matching these glob patterns (empty by default)
-#namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
 #https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
 
 #[tool.setuptools.package-data]
