@@ -18,9 +18,10 @@ For each excitation of the recorded acceleration waveform, the maximum observed 
 in terms of relative displacement or absolute acceleration is recorded.
 
 This repository provides a Python interface to a C implementation of response spectrum computation,
-which is based on the classical algorithm ``rdcalcdp``,
-taken from [EXSIM12 repository](https://github.com/GFZ-Centre-for-Early-Warning/exsim)
-(K. Assatourians and G. Atkinson, 2012).
+which is based on the widely used fortran code ``rdcalcdp``
+[EXSIM12 repository](https://github.com/GFZ-Centre-for-Early-Warning/exsim),
+[EXSIM12](https://www.seismotoolbox.ca/EXSIM12/EXSIM12.for),
+published by David M. Boore in 2008 as part of the TSPP package.
 This is a modified version of the algorithm ``Quake.For``, originally written by J.M. Roesset in 1971.
 The formulation is from Nigam and Jennings (BSSA, v. 59, 909-922, 1969).
 
@@ -28,33 +29,33 @@ The formulation is from Nigam and Jennings (BSSA, v. 59, 909-922, 1969).
 - Python 3.x
 - Dependencies: ctypes, numpy, matplotlib
 
-For buildeng the C extension:
+For building the C extension:
 - C compiler (e.g., GCC)
 - Cross-compilation tools Mingw64 if building for MS Windows
 - Python build tools: `setuptools`, `wheel`, `build`
 
 ## Installation
-Since the DVARS package is not yet available on PyPI, you can install it directly from the wheel.
 
-To install the DVARS package, you can use pip:
+The DVARS package is available on PyPI and can be installed using pip:
+```bash
+pip install dvars --upgrade
+```
+
+or you can install it directly from the wheel:
 ```bash
 pip install dvars-0.1.2-cp311-cp311-linux_x86_64.whl --upgrade
 ```
 
-## Building the wheel distribution
+## Building the wheel package
 
-1. Download the git repository
+Download the git repository
 ```bash
 git clone https://github.com/ipemu/dvars.git
 ```
-or the source package from the releases page and unzip.
+or download the source package from the releases page and unzip.
 
-2. Go to the root directory of the repository or the source package.
-```bash
-cd dvars-0.1.2
-```
-
-3.  Use the ``make`` command to build the package and the C extension.
+To build the package and the C extension, you can use the provided Makefile
+from the root directory of the package:
 
 Native build  (was tested on Linux only).
 ```bash
@@ -123,8 +124,8 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 please open an issue or submit a pull request.
 
 ## License
-This project is open source.
+This project is licensed under the MIT License. 
 
 ## Literature
 - Nigam, N.C., and Jennings, P.C. (1969). "Calculation of Response Spectra from Strong-motion Earthquake Records." Bulletin of the Seismological Society of America, Vol. 59, No.2, pp. 909-922. April, 1969
-
+- David M. Boore (2008) TSPP - A Collection of FORTRAN Programs for Processing and Manipulating Time Series. U.S. Geological Survey Open-File Report 2008-1111. Version 1.2, March 2008. https://pubs.usgs.gov/of/2008/1111/of2008-1111_v1.2.pdf

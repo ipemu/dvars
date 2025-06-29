@@ -10,7 +10,8 @@ readme = {file = "README.md", content-type = "text/markdown"}
 authors = [
     { name = "Pavel Zacherle", email = "zapa@ipe.muni.cz" },
 ]
-#license = { text = "GPLv3" }
+license = "MIT"
+license-files = ["LICENCE.txt","AUTHORS.txt"]
 requires-python = ">=3.9"
 dynamic = ["version"]
 classifiers = [
@@ -23,6 +24,7 @@ classifiers = [
     "Intended Audience :: Developers",
     "Operating System :: POSIX :: Linux",
     "Operating System :: Microsoft :: Windows",
+    "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
     "numpy",
